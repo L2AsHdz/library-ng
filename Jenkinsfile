@@ -5,13 +5,6 @@ pipeline {
         nodejs 'node'
     }
 
-    environment {
-        EMAIL = 'leonidasasael-hernandezlopez@cunoc.edu.gt'
-        EC2_INSTANCE = 'ubuntu@ec2-52-14-187-50.us-east-2.compute.amazonaws.com'
-        PATH_TO_DIST = '/var/lib/jenkins/workspace/cd_cd_frontend/'
-        REMOTE_PATH = '/var/www/html/'
-    }
-
     stages {
         stage('Install') {
             steps {
@@ -21,6 +14,26 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm run build --prod'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sshPublisher(publishers: [
+                    sshPublisherDesc(
+                        configName: 'frontend-aws',
+                        transfers: [
+                            sshTransfer(
+                                sourceFiles: 'dist/**/*',
+                                removePrefix: 'dist',
+                                remoteDirectory: '',
+                                execCommand: 'sudo systemctl restart nginx'  // O cualquier comando necesario después de la transferencia
+                            )
+                        ],
+                        usePromotionTimestamp: false,
+                        alwaysPublishFromMaster: false,
+                        retry: [retries: 2, retryDelay: 120000]
+                    )
+                ])
             }
         }
     }
