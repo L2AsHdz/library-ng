@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         EMAIL = 'leonidasasael-hernandezlopez@cunoc.edu.gt'
-        SSH_KEY = credentials('key-ec2-frontend')
+        SSH_KEY = credentials('ubuntu')
         EC2_INSTANCE = 'ubuntu@ec2-52-14-187-50.us-east-2.compute.amazonaws.com'
         PATH_TO_DIST = '/var/lib/jenkins/workspace/cd_cd_frontend/'
         REMOTE_PATH = '/var/www/html/'
