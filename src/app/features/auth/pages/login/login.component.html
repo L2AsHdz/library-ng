@@ -1,0 +1,26 @@
+<div class="flex justify-content-center align-items-center mt-8 p-8">
+  <p-toast/>
+  <form #form="ngForm" class="mt-8" (ngSubmit)="form.valid && onSubmit(form)">
+    <p-card header="Login" [style]="{ width: '600px' }">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text"  pInputText [(ngModel)]="credentials.username" name="username" id="username" class="w-full"
+               placeholder="Type your username" required #username="ngModel" />
+        <app-input-validation [control]="username" [form]="form"
+                              [errDef]="{
+                                    required: 'Username is required'
+                            }"/>
+      </div>
+      <div class="p-fluid field">
+        <label for="password">Password</label>
+        <p-password [(ngModel)]="credentials.password" [toggleMask]="true" [feedback]="false" placeholder="Type your password"
+          name="password" id="password" [required]="true" #password="ngModel" />
+        <app-input-validation [control]="password" [form]="form"
+                              [errDef]="{
+                                    required: 'Password is required'
+                            }"/>
+      </div>
+      <p-button label="Sign In" type="submit" styleClass="w-full" />
+    </p-card>
+  </form>
+</div>

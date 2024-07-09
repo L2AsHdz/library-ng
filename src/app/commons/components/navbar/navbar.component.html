@@ -1,0 +1,12 @@
+
+<div class="card" *ngIf="authService.isAuthenticated()">
+
+  <p-menubar [model]="items">
+    <ng-template pTemplate="start">
+      <a class="pi pi-home" style="font-size: 2rem" routerLink="/homepage"></a>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <p-chip label="{{username}}" image="https://cdn1.iconfinder.com/data/icons/basic-ui-set-v5-user-outline/64/Account_profile_user_avatar_rounded-512.png"></p-chip>
+    </ng-template>
+  </p-menubar>
+</div>
