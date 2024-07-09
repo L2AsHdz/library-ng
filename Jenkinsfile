@@ -25,7 +25,7 @@ pipeline {
                         transfers: [
                             sshTransfer(
                                 sourceFiles: 'dist/**/*',
-                                removePrefix: 'dist',
+                                removePrefix: 'dist/library-ng',
                                 remoteDirectory: '',
                                 execCommand: '''
                                     sudo rm -rf /var/www/html/*
