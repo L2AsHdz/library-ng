@@ -21,17 +21,21 @@ pipeline {
                 sshPublisher(publishers: [
                     sshPublisherDesc(
                         configName: 'frontend-aws',
+                        verbose: true,
                         transfers: [
                             sshTransfer(
                                 sourceFiles: 'dist/**/*',
                                 removePrefix: 'dist',
-                                remoteDirectory: '',
-                                execCommand: 'sudo systemctl restart nginx'  // O cualquier comando necesario después de la transferencia
+                                remoteDirectory: '/home/ubuntu/temp_dist',
+                                execCommand: '''
+                                    sudo rm -rf /var/www/html/*
+                                    sudo cp -r /home/ubuntu/temp_dist/* /var/www/html/
+                                    sudo systemctl restart nginx
+                                '''
                             )
                         ],
                         usePromotionTimestamp: false,
-                        alwaysPublishFromMaster: false,
-                        retry: [retries: 2, retryDelay: 120000]
+                        sshRetry: [retries: 2, retryDelay: 120000]
                     )
                 ])
             }
