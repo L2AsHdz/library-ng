@@ -26,7 +26,7 @@ pipeline {
                             sshTransfer(
                                 sourceFiles: 'dist/**/*',
                                 removePrefix: 'dist',
-                                remoteDirectory: '/home/ubuntu/temp_dist',
+                                remoteDirectory: '',
                                 execCommand: '''
                                     sudo rm -rf /var/www/html/*
                                     sudo cp -r /home/ubuntu/temp_dist/* /var/www/html/
@@ -35,7 +35,7 @@ pipeline {
                             )
                         ],
                         usePromotionTimestamp: false,
-                        sshRetry: [retries: 2, retryDelay: 120000]
+                        sshRetry: [retries: 2, retryDelay: 30000]
                     )
                 ])
             }
