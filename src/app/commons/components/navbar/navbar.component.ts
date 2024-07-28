@@ -27,9 +27,9 @@ export class NavbarComponent implements OnInit {
 
   MenuItemFactory = [
     {
-      label: 'Upload data',
-      icon: 'pi pi-fw pi-upload',
-      routerLink: '/admin/upload-data',
+      label: 'Home',
+      icon: 'pi pi-home',
+      routerLink: '/homepage',
     },
     {
       label: 'Users management',
@@ -55,8 +55,8 @@ export class NavbarComponent implements OnInit {
       routerLink: '/admin/career-management',
     },
     {
-      label: 'Salir',
-      icon: 'pi pi-fw pi-power-off',
+      label: 'Quit',
+      icon: 'pi pi-fw pi-sign-out',
       routerLink: '/logout',
     },
   ];

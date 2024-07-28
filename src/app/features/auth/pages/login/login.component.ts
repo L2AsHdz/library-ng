@@ -54,8 +54,14 @@ export class LoginComponent implements OnInit {
         next: response => {
           window.location.reload();
         },
-        error: error => {
-          this.messageService.add({severity:'error', summary:'Error', detail:'Invalid credentials'});
+        error: e => {
+          if (e.error.errors){
+            e.error.errors.forEach((error: any) => {
+              this.messageService.add({severity: 'error', summary: e.error.title, detail: error.message});
+            });
+          }
+          else
+            this.messageService.add({severity:'error', summary:e.error.title, detail:'Not able to login. Please check your credentials.'});
         }
       });
   }
