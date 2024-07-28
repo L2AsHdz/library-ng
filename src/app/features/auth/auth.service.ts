@@ -3,7 +3,7 @@ import {environment} from "../../../environments/environment";
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {JwtService} from "./jwt.service";
 import {map} from "rxjs";
-import {Credentials} from "../../models/model";
+import {Credentials, User} from "../../models/model";
 
 @Injectable({
   providedIn: 'root'
