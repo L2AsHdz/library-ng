@@ -1,0 +1,81 @@
+<form name="userForm" #form="ngForm" (ngSubmit)="form.valid && onSubmit()">
+  <div class="grid">
+    <div class="col flex flex-column gap-2">
+      <label for="fullname">Full Name</label>
+      <input pInputText id="fullname" name="fullname" #fullname="ngModel" [(ngModel)]="student.fullName"
+              required maxlength="150" minlength="3" />
+      <app-input-validation [control]="fullname" [form]="form"
+                            [errDef]="{
+                              required: 'Full name is required',
+                              minlength: 'Full name must be at least 3 characters',
+                              maxlength: 'Full name must be less than 150 characters'
+                            }"/>
+    </div>
+    <div class="col flex flex-column gap-2">
+      <label for="email">Email</label>
+      <input pInputText id="email" name="email" aria-describedby="email-help" [(ngModel)]="student.email" [pattern]="emailRegex" #email="ngModel" required minlength="3" />
+      <app-input-validation [control]="email" [form]="form"
+                            [errDef]="{
+                              required: 'Email is required',
+                              minlength: 'Email must be at least 3 characters',
+                              pattern: 'Email is not valid'
+                            }"/>
+    </div>
+    <div class="p-fluid col flex flex-column gap-2">
+      <label for="birthdate">Birthdate</label>
+      <p-calendar [(ngModel)]="student.birthDate" [showIcon]="true" #birthdate="ngModel" name="birthdate" id="birthdate" [required]="true"/>
+
+      <app-input-validation [control]="birthdate" [form]="form"
+                            [errDef]="{
+                              required: 'Birthdate is required'
+                            }"/>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col flex flex-column gap-2">
+      <label for="academicNumber">Academic Number</label>
+      <input pInputText id="academicNumber" name="academicNumber" #academicNumber="ngModel" [(ngModel)]="student.academicNumber"
+             required />
+      <app-input-validation [control]="academicNumber" [form]="form"
+                            [errDef]="{
+                                required: 'Academic number is required',
+                              }"/>
+    </div>
+    <div class="col flex flex-column gap-2 p-fluid">
+      <label for="careerId">Career</label>
+      <p-dropdown id="careerId" name="careerId" [options]="(careers$ | async)!" [(ngModel)]="student.careerId" #careerId="ngModel"
+                  [showClear]="true" placeholder="Select a Career" optionLabel="name" optionValue="id" [required]="true" />
+      <app-input-validation [control]="careerId" [form]="form"
+                            [errDef]="{
+                              required: 'Career is required'
+                            }"/>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col flex flex-column gap-2">
+      <label for="username">Username</label>
+      <input pInputText id="username" name="username" aria-describedby="username-help" #username="ngModel" [(ngModel)]="student.username"
+             required maxlength="50"  minlength="3" />
+      <app-input-validation [control]="username" [form]="form"
+                            [errDef]="{
+                              required: 'Username is required',
+                              minlength: 'Username must be at least 3 characters',
+                              maxlength: 'Username must be less than 50 characters'
+                            }"/>
+    </div>
+    <div class="p-fluid col flex flex-column gap-2">
+      <label for="password">Password</label>
+      <p-password [(ngModel)]="student.password" [toggleMask]="true" [feedback]="false" [pattern]="passwordRegex" #password="ngModel" placeholder="Type your password"
+                  name="password" id="password" [required]="true" minlength="8" />
+      <app-input-validation [control]="password" [form]="form"
+                            [errDef]="{
+                              required: 'Password is required',
+                              minlength: 'Password must be at least 8 characters',
+                              pattern: 'Password must contain at least one uppercase, one lowercase and one number'
+                            }"/>
+    </div>
+  </div>
+  <div class="flex justify-content-end">
+    <p-button label="{{labelButton}}" type="submit" icon="pi pi-save"/>
+  </div>
+</form>

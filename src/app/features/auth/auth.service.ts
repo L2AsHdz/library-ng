@@ -39,6 +39,10 @@ export class AuthService {
     }))
   }
 
+  registerUser(user: User){
+    return this.http.post<User>(`${this.baseURl}/v1/auth/signup`, user);
+  }
+
   isAuthenticated() {
     let token = localStorage.getItem('token');
     return token && !this.jwtService.isTokenExpired(token);

@@ -1,0 +1,17 @@
+<form name="userForm" #form="ngForm" (ngSubmit)="form.valid && onSubmit()">
+  <div class="grid">
+    <div class="col flex flex-column gap-2">
+      <label for="name">Name Career</label>
+      <input pInputText id="name" name="name" #name="ngModel" [(ngModel)]="career.name"
+              required maxlength="150" minlength="3" />
+      <app-input-validation [control]="name" [form]="form"
+                            [errDef]="{
+                              required: 'Name is required',
+                              maxlength: 'Name must be less than 150 characters',
+                            }"/>
+    </div>
+  </div>
+  <div class="flex justify-content-end">
+    <p-button label="{{labelButton}}" type="submit" icon="pi pi-save"/>
+  </div>
+</form>

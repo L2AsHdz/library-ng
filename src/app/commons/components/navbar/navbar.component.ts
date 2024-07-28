@@ -32,6 +32,29 @@ export class NavbarComponent implements OnInit {
       routerLink: '/admin/upload-data',
     },
     {
+      label: 'Users management',
+      icon: 'pi pi-fw pi-users',
+      visible: this.authService.hasRequiredRol('ADMIN'),
+      items:[
+        {
+          label: 'Users',
+          icon: 'pi pi-fw pi-users',
+          routerLink: '/admin/user-management',
+        },
+        {
+          label: 'Students',
+          icon: 'pi pi-fw pi-users',
+          routerLink: '/admin/student-management',
+        }
+      ]
+    },
+    {
+      label: 'Career management',
+      icon: 'pi pi-fw pi-users',
+      visible: this.authService.hasRequiredRol('ADMIN'),
+      routerLink: '/admin/career-management',
+    },
+    {
       label: 'Salir',
       icon: 'pi pi-fw pi-power-off',
       routerLink: '/logout',

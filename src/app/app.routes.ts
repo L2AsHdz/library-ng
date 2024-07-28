@@ -17,6 +17,28 @@ export const routes: Routes = [
       .then(c => c.HomeComponent)
   },
   {
+    path: 'admin',
+    data: {requireAuthentication: true, requiredRol: 'ADMIN'},
+    canActivate: mapToCanActivate([AuthGuard]),
+    children: [
+      {
+        path: 'user-management',
+        loadComponent: () => import('./features/admin/pages/user-management/user-management.component')
+          .then(c => c.UserManagementComponent)
+      },
+      {
+        path: 'student-management',
+        loadComponent: () => import('./features/admin/pages/student-management/student-management.component')
+          .then(c => c.StudentManagementComponent)
+      },
+      {
+        path: 'career-management',
+        loadComponent: () => import('./features/admin/pages/career-management/career-management.component')
+          .then(c => c.CareerManagementComponent)
+      },
+    ]
+  },
+  {
     path: 'login',
     loadComponent: () => import('./features/auth/pages/login/login.component')
       .then(c => c.LoginComponent)

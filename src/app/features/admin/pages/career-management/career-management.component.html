@@ -1,0 +1,49 @@
+<div class="card ml-8 mr-8 mt-6">
+  <p-card header="User Management">
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
+    <p-toast></p-toast>
+    <p-table
+      #dtUsers
+      [value]="(careers$ | async)!"
+      [(contextMenuSelection)]="selectedCareer"
+      [contextMenu]="cm"
+      [paginator]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[10, 20, 25]"
+      [globalFilterFields]="['name', 'username', 'email', 'status']"
+      styleClass="p-datatable-sm p-datatable-striped"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex mr-3 ml-3">
+          <p-button label="Clear" icon="pi pi-filter-slash" size="small" (click)="clear(dtUsers)" />
+          <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dtUsers.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+            </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+        </tr>
+        <tr>
+          <th><p-columnFilter type="text" field="id" /></th>
+          <th><p-columnFilter type="text" field="name" /></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-career>
+        <tr [pContextMenuRow]="career">
+          <td>{{ career.id }}</td>
+          <td>{{ career.name }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+        <p-button (click)="showDialog()" label="Add Career" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>
