@@ -60,7 +60,7 @@ export class CareerManagementComponent implements OnInit, OnDestroy {
     this.ref = this.dialogService.open(CareerDialogComponent, {
       header: 'Edit career',
       width: '25vw',
-      height: '10vw',
+      height: '11vw',
       contentStyle: { overflow: 'hidden' },
       data: {
         selectedCareer: this.selectedCareer,
@@ -76,8 +76,13 @@ export class CareerManagementComponent implements OnInit, OnDestroy {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Career updated successfully' });
           },
           error: (e) => {
-            this.messageService.add({ severity: 'error', summary: e.error.title, detail: e.error.detail });
-            console.error(e);
+            if (e.error.errors){
+              e.error.errors.forEach((error: any) => {
+                this.messageService.add({severity: 'error', summary: e.error.title, detail: error.message});
+              });
+            }
+            else
+              this.messageService.add({severity:'error', summary:e.error.title, detail:'An error occurred while updating career'});
           }
         });
       }
@@ -91,7 +96,7 @@ export class CareerManagementComponent implements OnInit, OnDestroy {
     this.ref = this.dialogService.open(CareerDialogComponent, {
       header: 'Add new career',
       width: '25vw',
-      height: '10vw',
+      height: '11vw',
       contentStyle: { overflow: 'hidden' },
       data: {
         selectedCareer: null,
@@ -107,8 +112,13 @@ export class CareerManagementComponent implements OnInit, OnDestroy {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Career saved successfully' });
           },
           error: (e) => {
-            this.messageService.add({ severity: 'error', summary: e.error.title, detail: e.error.detail });
-            console.log(e);
+            if (e.error.errors){
+              e.error.errors.forEach((error: any) => {
+                this.messageService.add({severity: 'error', summary: e.error.title, detail: error.message});
+              });
+            }
+            else
+              this.messageService.add({severity:'error', summary:e.error.title, detail:'An error occurred while saving career'});
           }
         });
       }
@@ -120,17 +130,6 @@ export class CareerManagementComponent implements OnInit, OnDestroy {
 
   clear(table: Table) {
     table.clear();
-  }
-
-  getSeverity(status: boolean) {
-    switch (status) {
-      case true:
-        return 'success';
-      case false:
-        return 'help';
-      default:
-        return 'secondary';
-    }
   }
 
   ngOnDestroy() {

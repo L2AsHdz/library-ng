@@ -56,6 +56,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.items = [
       { label: 'Edit', icon: 'pi pi-fw pi-user-edit', command: () => this.editUser(this.selectedUser) },
       { label: 'Change Status', icon: 'pi pi-fw pi-sync', command: () => this.changeStatus(this.selectedUser) },
+      { label: 'Change Password', icon: 'pi pi-fw pi-key', command: () => console.log('Change Password!') }
     ];
   }
 
@@ -75,7 +76,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.ref = this.dialogService.open(UserDialogComponent, {
       header: 'Edit user',
       width: '50vw',
-      height: '18vw',
+      height: '16vw',
       contentStyle: { overflow: 'hidden' },
       data: {
         selectedUser: this.selectedUser,
@@ -91,8 +92,13 @@ export class UserManagementComponent implements OnInit, OnDestroy {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User updated successfully' });
           },
           error: (e) => {
-            this.messageService.add({ severity: 'error', summary: e.error.title, detail: e.error.detail });
-            console.error(e);
+            if (e.error.errors){
+              e.error.errors.forEach((error: any) => {
+                this.messageService.add({severity: 'error', summary: e.error.title, detail: error.message});
+              });
+            }
+            else
+              this.messageService.add({severity:'error', summary:e.error.title, detail:'An error occurred while updating the user'});
           }
         });
       }
@@ -106,7 +112,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.ref = this.dialogService.open(UserDialogComponent, {
       header: 'Add new user',
       width: '50vw',
-      height: '18vw',
+      height: '16vw',
       contentStyle: { overflow: 'hidden' },
       data: {
         selectedUser: null,
@@ -122,8 +128,13 @@ export class UserManagementComponent implements OnInit, OnDestroy {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User saved successfully' });
           },
           error: (e) => {
-            this.messageService.add({ severity: 'error', summary: e.error.title, detail: e.error.detail });
-            console.log(e);
+            if (e.error.errors){
+              e.error.errors.forEach((error: any) => {
+                this.messageService.add({severity: 'error', summary: e.error.title, detail: error.message});
+              });
+            }
+            else
+              this.messageService.add({severity:'error', summary:e.error.title, detail:'An error occurred while saving the user'});
           }
         });
       }

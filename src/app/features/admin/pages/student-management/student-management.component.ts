@@ -75,7 +75,7 @@ export class StudentManagementComponent implements OnInit, OnDestroy {
     this.ref = this.dialogService.open(StudentDialogComponent, {
       header: 'Edit student',
       width: '50vw',
-      height: '18vw',
+      height: '16vw',
       contentStyle: { overflow: 'hidden' },
       data: {
         selectedStudent: this.selectedStudent,
@@ -91,8 +91,13 @@ export class StudentManagementComponent implements OnInit, OnDestroy {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Student updated successfully' });
           },
           error: (e) => {
-            this.messageService.add({ severity: 'error', summary: e.error.title, detail: e.error.detail });
-            console.error(e);
+            if (e.error.errors){
+              e.error.errors.forEach((error: any) => {
+                this.messageService.add({severity: 'error', summary: e.error.title, detail: error.message});
+              });
+            }
+            else
+              this.messageService.add({severity:'error', summary:e.error.title, detail:'An error occurred while updating the student'});
           }
         });
       }
@@ -106,7 +111,7 @@ export class StudentManagementComponent implements OnInit, OnDestroy {
     this.ref = this.dialogService.open(StudentDialogComponent, {
       header: 'Add new student',
       width: '50vw',
-      height: '18vw',
+      height: '16vw',
       contentStyle: { overflow: 'hidden' },
       data: {
         selectedStudent: null,
@@ -122,8 +127,13 @@ export class StudentManagementComponent implements OnInit, OnDestroy {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Student saved successfully' });
           },
           error: (e) => {
-            this.messageService.add({ severity: 'error', summary: e.error.title, detail: e.error.detail });
-            console.log(e);
+            if (e.error.errors){
+              e.error.errors.forEach((error: any) => {
+                this.messageService.add({severity: 'error', summary: e.error.title, detail: error.message});
+              });
+            }
+            else
+              this.messageService.add({severity:'error', summary:e.error.title, detail:'An error occurred while saving the student'});
           }
         });
       }
