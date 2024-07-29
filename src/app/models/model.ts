@@ -36,8 +36,19 @@ export class Book {
 
 }
 
+export class Loan {
+  id!: number;
+  studentId!: number;
+  bookId!: number;
+  loanPrice!: number;
+  loanArrears!: number;
+  loanDate!: Date;
+  status!: string;
+}
+
 export class Parameter {
   id!: number;
   parameterName!: string;
   parameterValue!: string;
 }
+

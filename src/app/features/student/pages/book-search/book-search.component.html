@@ -1,0 +1,55 @@
+<div class="card ml-8 mr-8 mt-6">
+  <p-card header="User Management">
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
+    <p-toast></p-toast>
+    <p-table
+      #dtBooks
+      [value]="(books$ | async)!"
+      [(contextMenuSelection)]="selectedBook"
+      [contextMenu]="cm"
+      [paginator]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[10, 20, 25]"
+      [globalFilterFields]="['title', 'author', 'publisher']"
+      styleClass="p-datatable-sm p-datatable-striped"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex mr-3 ml-3">
+          <p-button label="Clear" icon="pi pi-filter-slash" size="small" (click)="clear(dtBooks)" />
+          <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dtBooks.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+            </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Stock</th>
+          <th>Publication Date</th>
+          <th>Publisher</th>
+        </tr>
+        <tr>
+          <th><p-columnFilter type="text" field="title" /></th>
+          <th><p-columnFilter type="text" field="author" /></th>
+          <th><p-columnFilter type="text" field="stock" /></th>
+          <th><p-columnFilter type="text" field="publicationDate" /></th>
+          <th><p-columnFilter type="text" field="publisher" /></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-book>
+        <tr [pContextMenuRow]="book">
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.stock }}</td>
+          <td>{{ book.publicationDate }}</td>
+          <td>{{ book.publisher }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>

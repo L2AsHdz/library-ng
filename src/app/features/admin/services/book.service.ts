@@ -27,4 +27,12 @@ export class BookService {
     return this.http.put<Book>(`${this.baseUrl}/${book.id}`, book);
   }
 
+  public booksWithStock(quantity: number){
+    return this.http.get<Book[]>(`${this.baseUrl}/with-stock/${quantity}`);
+  }
+
+  public booksWithOutStock(quantity: number){
+    return this.http.get<Book[]>(`${this.baseUrl}/out-of-stock/${quantity}`);
+  }
+
 }

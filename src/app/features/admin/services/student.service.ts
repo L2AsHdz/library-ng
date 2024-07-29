@@ -23,4 +23,13 @@ export class StudentService {
     return this.http.put<Student>(`${this.baseUrl}/${student.id}`, student);
   }
 
+  public getStudentById(id: number) {
+    return this.http.get<Student>(`${this.baseUrl}/${id}`);
+  }
+
+
+  public getStudentByAcademicNumber(academicNumber: number) {
+    return this.http.get<Student>(`${this.baseUrl}/academic-number/${academicNumber}`);
+  }
+
 }

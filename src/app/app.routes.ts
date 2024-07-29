@@ -41,6 +41,23 @@ export const routes: Routes = [
         loadComponent: () => import('./features/admin/pages/book-management/book-management.component')
           .then(c => c.BookManagementComponent)
       },
+      {
+        path: 'new-loan',
+        loadComponent: () => import('./features/admin/pages/book-search/book-search.component')
+          .then(c => c.BookSearchComponent)
+      },
+    ]
+  },
+  {
+    path: 'student',
+    data: {requireAuthentication: true, requiredRol: 'STUDENT'},
+    canActivate: mapToCanActivate([AuthGuard]),
+    children: [
+      {
+        path: 'book-search',
+        loadComponent: () => import('./features/student/pages/book-search/book-search.component')
+          .then(c => c.BookSearchComponent)
+      },
     ]
   },
   {
