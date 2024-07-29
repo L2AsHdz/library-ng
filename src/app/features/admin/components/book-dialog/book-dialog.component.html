@@ -1,0 +1,52 @@
+<form name="userForm" #form="ngForm" (ngSubmit)="form.valid && onSubmit()">
+  <div class="grid">
+    <div class="col flex flex-column gap-2">
+      <label for="title">Title</label>
+      <input pInputText id="title" name="title" #title="ngModel" [(ngModel)]="book.title"
+              required minlength="3" />
+      <app-input-validation [control]="title" [form]="form"
+                            [errDef]="{
+                              required: 'Title is required',
+                              minlength: 'Title must be at least 1 character',
+                              maxlength: 'Title must be less than 150 characters'
+                            }"/>
+    </div>
+    <div class="col flex flex-column gap-2">
+      <label for="author">Author</label>
+      <input pInputText id="author" name="author" [(ngModel)]="book.author" #author="ngModel" required minlength="3"
+             maxlength="150"/>
+      <app-input-validation [control]="author" [form]="form"
+                            [errDef]="{
+                              required: 'Author is required',
+                              minlength: 'Author must be at least 1 character',
+                              maxlength: 'Author must be less than 150 characters'
+                            }"/>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="p-fluid col flex flex-column gap-2">
+      <label for="publicationDate">Publication Date</label>
+      <p-calendar [(ngModel)]="book.publicationDate" [showIcon]="true" #publicationDate="ngModel" name="publicationDate"
+                  id="publicationDate" [required]="true" appendTo="body" dateFormat="yy-mm-dd"/>
+
+      <app-input-validation [control]="publicationDate" [form]="form"
+                            [errDef]="{
+                              required: 'Publication date is required'
+                            }"/>
+    </div>
+    <div class="col flex flex-column gap-2">
+      <label for="publisher">Publisher</label>
+      <input pInputText id="publisher" name="publisher" #publisher="ngModel" [(ngModel)]="book.publisher"
+             required maxlength="150"  minlength="1" />
+      <app-input-validation [control]="publisher" [form]="form"
+                            [errDef]="{
+                              required: 'Publisher is required',
+                              minlength: 'Publisher must be at least 1 character',
+                              maxlength: 'Publisher must be less than 150 characters'
+                            }"/>
+    </div>
+  </div>
+  <div class="flex justify-content-end">
+    <p-button label="{{labelButton}}" type="submit" icon="pi pi-save"/>
+  </div>
+</form>

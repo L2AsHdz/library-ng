@@ -36,6 +36,11 @@ export const routes: Routes = [
         loadComponent: () => import('./features/admin/pages/career-management/career-management.component')
           .then(c => c.CareerManagementComponent)
       },
+      {
+        path: 'book-management',
+        loadComponent: () => import('./features/admin/pages/book-management/book-management.component')
+          .then(c => c.BookManagementComponent)
+      },
     ]
   },
   {

@@ -55,6 +55,12 @@ export class NavbarComponent implements OnInit {
       routerLink: '/admin/career-management',
     },
     {
+      label: 'Book management',
+      icon: 'pi pi-fw pi-book',
+      visible: this.authService.hasRequiredRol('ADMIN'),
+      routerLink: '/admin/book-management',
+    },
+    {
       label: 'Quit',
       icon: 'pi pi-fw pi-sign-out',
       routerLink: '/logout',

@@ -26,6 +26,16 @@ export class Career {
   name!: string;
 }
 
+export class Book {
+  id!: number;
+  title!: string;
+  author!: string;
+  stock!: number;
+  publicationDate!: Date;
+  publisher!: string;
+
+}
+
 export class Parameter {
   id!: number;
   parameterName!: string;
